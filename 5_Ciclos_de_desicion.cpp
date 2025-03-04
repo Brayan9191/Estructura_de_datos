@@ -19,10 +19,16 @@ int main()
 //	switch(opc)
 //	{
 //		case 1: codigo
+//			break;
 //		
 //		case 2: codigo
+//			break;
 //		
 //		case 3: codigo
+//			break;
+//
+//		default: codigo
+//			break;
 //	}
 	
 	getch();
