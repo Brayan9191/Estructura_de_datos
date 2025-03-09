@@ -45,7 +45,7 @@ int main()
 		cout<<o<< " / "<<arA[o]<<endl;
 		cout<<i<< " / "<<arB[i]<<endl;
 		arD[o] = arA[o] +arB[i];
-		cout<<"La suma del vector A["<< o << "] y B["<< i <<"] es: "<< arD[i]<< endl;
+		cout<<"La suma del vector A["<< o << "] y B["<< i <<"] es: "<< arD[o]<< endl;
 		o++;
 	}
 	
