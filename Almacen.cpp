@@ -6,7 +6,8 @@ using namespace std;
 int main()
 {
 	//Declarar variables
-	int opc, tam=4;
+	int opc, tam = 0, n = 0;
+	string decision;
 	
 	//Declarar vectores
 	string productos[tam];
@@ -21,7 +22,7 @@ int main()
 		Preguntar si quiere ingresar otro productos
 	*/
 	
-	while(cout<<"Quiere ingresar un producto"<<)
+//	while(cout<<"Quiere ingresar un producto"<<)
 	do
 	{
 		//Salida a pantalla
@@ -37,8 +38,9 @@ int main()
 		{
 			case 1: system("cls");
 					cout<<"MODULO DE CAPTURA DE PRODUCTOS"<<endl;
+					tam++;
 					//Captura de productos
-					for(int n=0; n<tam; n++)
+					for(n; n<tam; n++)
 					{
 						cout<<"Producto #["<<(n+1)<<"]"<<endl;
 						cout<<"Referencia producto: ";
@@ -47,6 +49,13 @@ int main()
 						cin>>productos[n];
 						cout<<"precio del producto: ";
 						cin>>precio[n];
+						cout<<endl;
+						cout<<"Quiere ingresar otro producto?"<<endl;
+						cin>>decision;
+						if(decision == "si" or "Si")
+						{
+							tam++;
+						} // Fin if
 					} //Fin for
 					
 					system("pause");
@@ -54,12 +63,12 @@ int main()
 					
 			case 2: system("cls");
 					cout<<"MODULO REPORTE DE PRODUCTOS"<<endl;
-					for(int n=0; n<tam; n++)
+					for(int i=0; i<tam; i++)
 					{
-						cout<<"Producto #["<<(n+1)<<"]"<<endl;
-						cout<<"Referencia: "<<(codigo[n])<<endl; 
-						cout<<"Productos.: "<<(productos[n])<<endl;
-						cout<<"Precio....: "<<(precio[n])<<endl;
+						cout<<"Producto #["<<(i+1)<<"]"<<endl;
+						cout<<"Referencia: "<<(codigo[i])<<endl; 
+						cout<<"Productos.: "<<(productos[i])<<endl;
+						cout<<"Precio....: "<<(precio[i])<<endl;
 						cout<<endl;
 					} //Fin for
 				
