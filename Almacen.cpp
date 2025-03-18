@@ -7,7 +7,7 @@ int main()
 {
 	//Declarar variables
 	int opc, tam = 4, pos = 0, bus, pr;
-	string np; // Para añadir nuevo producto
+	string np; // Para aÃ±adir nuevo producto
 	bool bandera; 
 	
 	//Declarar vectores
@@ -74,7 +74,7 @@ int main()
 					
 					for(int i=0; i<pos; i++)
 					{
-						// Comparación
+						// ComparaciÃ³n
 						if(bus==codigo[i])
 						{
 							pr= i;
@@ -86,7 +86,7 @@ int main()
 						} //Fin else
 					} //Fin for
 					// Validar bendera
-					if(bandera)
+					if(bandera==true)
 					{
 						cout<<"El producto si existe"<<endl;
 						cout<<"Producto #["<<(pr+1)<<"]"<<endl;
