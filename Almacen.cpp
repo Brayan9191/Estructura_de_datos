@@ -6,30 +6,22 @@ using namespace std;
 int main()
 {
 	//Declarar variables
-	int opc, tam = 0, n = 0;
-	string decision;
+	int opc, tam = 4, pos = 0, bus, pr;
+	string np; // Para añadir nuevo producto
+	bool bandera; 
 	
 	//Declarar vectores
 	string productos[tam];
-	string codigo[tam];
+	int codigo[tam];
 	int precio[tam];
 	
-	/*
-	cout<<"Ingrese la cantidad de productos a registrar:"<<endl;
-	cin>>cant;
-	*/
-	/*
-		Preguntar si quiere ingresar otro productos
-	*/
-	
-//	while(cout<<"Quiere ingresar un producto"<<)
 	do
 	{
 		//Salida a pantalla
 		cout<<("Almacen de cadena")<<endl;
 		cout<<("1. Capturar productos")<<endl;
 		cout<<("2. Reportes de productos")<<endl;
-		cout<<("3. Menu 3")<<endl;
+		cout<<("3. Buscar producto")<<endl;
 		cout<<("4. Salir")<<endl;
 		cout<<("Selecciona  una opcion del menu: ");
 		cin>>opc;
@@ -38,32 +30,32 @@ int main()
 		{
 			case 1: system("cls");
 					cout<<"MODULO DE CAPTURA DE PRODUCTOS"<<endl;
-					tam++;
 					//Captura de productos
-					for(n; n<tam; n++)
-					{
-						cout<<"Producto #["<<(n+1)<<"]"<<endl;
-						cout<<"Referencia producto: ";
-						cin>>codigo[n];
-						cout<<"Ingrese producto...: ";
-						cin>>productos[n];
-						cout<<"precio del producto: ";
-						cin>>precio[n];
-						cout<<endl;
-						cout<<"Quiere ingresar otro producto?"<<endl;
-						cin>>decision;
-						if(decision == "si" or "Si")
-						{
-							tam++;
-						} // Fin if
-					} //Fin for
+					do{
+							if(pos<tam)
+								{
+									cout<<"Producto #["<<(pos+1)<<"]"<<endl;
+									cout<<"Ingrese producto....: ";
+									cin>>productos[pos];
+									cout<<"precio del producto: $";
+									cin>>precio[pos];
+									codigo [pos]=(pos+1);
+								} //Fin if
+								else
+								{
+									cout<<"El almacen esta lleno"<<endl;
+								} // Fin else
+								pos++; // Incremento de pos
+								cout<<"Quiere ingresar otro producto? [S] [N]"<<endl;
+									cin>> np;
+					}while(np == "s" || np == "S"); // || -> es para agregar otra condicion or, o,
 					
 					system("pause");
 					break;
 					
 			case 2: system("cls");
 					cout<<"MODULO REPORTE DE PRODUCTOS"<<endl;
-					for(int i=0; i<tam; i++)
+					for(int i=0; i<pos; i++)
 					{
 						cout<<"Producto #["<<(i+1)<<"]"<<endl;
 						cout<<"Referencia: "<<(codigo[i])<<endl; 
@@ -76,10 +68,38 @@ int main()
 					break;
 					
 			case 3: system("cls");
-					cout<<"MODULO 3 EN PREOCESO"<<endl;
-					/*
-						Codigo
-					*/
+					cout<<"Modulo Buscar productos"<<endl;
+					cout<<"Referencia del producto buscado: ";
+					cin>>bus;
+					
+					for(int i=0; i<pos; i++)
+					{
+						// Comparación
+						if(bus==codigo[i])
+						{
+							pr= i;
+							bandera=true;
+						}
+						else
+						{
+							bandera=false;
+						} //Fin else
+					} //Fin for
+					// Validar bendera
+					if(bandera)
+					{
+						cout<<"El producto si existe"<<endl;
+						cout<<"Producto #["<<(pr+1)<<"]"<<endl;
+						cout<<"Referencia: "<<(codigo[pr])<<endl; 
+						cout<<"Productos.: "<<(productos[pr])<<endl;
+						cout<<"Precio....: "<<(precio[pr])<<endl;
+						cout<<endl;
+					}
+					else
+					{
+						cout<<"El producto buscado no existe"<<endl;
+					}
+					
 					system("pause");
 					break;
 					
