@@ -26,9 +26,13 @@ int main()
 {	
 	//Declarar variables
 	int opc, tam = 4, pos = 0, bus, pr;
-	int o=2, z=0;
+	int o=2, z=0, par=1, lin = 0, clin = 3, y=1;
 	string np; // Para anadir nuevo producto
 	bool bandera; 
+	
+	//Variables para ordenamiento
+	int i, ubi, auxprecio, auxcodigo; //Control - posicion elemnto - alamacenamiento
+	string auxprod;
 	
 	//Declarar vectores
 	string productos[tam];
@@ -39,7 +43,7 @@ int main()
 	{
 		//Salida a pantalla
 		system("cls");
-		color(hConsole, 3);								//Azul clarito - 3
+		color(hConsole, 3);								//Azul claro - 3
 		cout<<("Almacen de cadena")<<endl;
 		color(hConsole, 2);								//Verde - 2
 		cout<<("1. Capturar productos")<<endl;
@@ -49,8 +53,12 @@ int main()
 		cout<<("3. Buscar producto")<<endl;
 		color(hConsole, 6);								//Naranja_Amarrollo - 6
 		cout<<("4. Modificar producto")<<endl;
+		color(hConsole, 9);								//Azul claro - 9
+		cout<<("5. Ordenar precio por Menor o Mayor")<<endl;
+		color(hConsole, 1);								//Azul oscuro - 1
+		cout<<("6. Orden alfabetico ")<<endl;
 		color(hConsole, 4);								//rojo - 4
-		cout<<("5. Salir")<<endl;
+		cout<<("7. Salir")<<endl;
 		color(hConsole, 12);							//Rosa - 12
 		cout<<("Selecciona  una opcion del menu: ");
 		cin>>opc;
@@ -61,66 +69,80 @@ int main()
 					//Captura de productos
 					color(hConsole, 2);
 					do{
-							if(pos<tam)
+						if(pos<tam)
+						{
+							//Cuerpo de la tabla
+							//Filas
+							for(int i=0; i<2; i++)
+							{
+								for(int i=1; i<=60; i++)
 								{
-									//Cuerpo de la tabla
-									for(int i=1; i<=60; i++)
-									{
-										gotoxy(i, 0);
-										cout<<"-";
-										gotoxy(i, 2);
-										cout<<"-";
-										gotoxy(i, 4);
-										cout<<"-";
-										gotoxy(i, 6);
-										cout<<"-";
-										gotoxy(i, 8);
-										cout<<"-";
-									}//Fin if
-									for(int i=0; i<9; i++)
-									{
-										gotoxy(1, i);
-										cout<<"|";
-										if(o<9)
-										{
-										gotoxy(30, o); o++;
-										cout<<"|";
-										}//Fin if
-										gotoxy(60, i);
-										cout<<"|";
-									}//Fin if
-									
-									gotoxy(15, 1);
-									cout<<"MODULO DE CAPTURA DE PRODUCTOS"<<endl;
-									codigo [pos]=(pos+1);
-									gotoxy(2, 3);
-									cout<<"Referancia"<<endl;
-									gotoxy(2, 5);
-									cout<<"Producto"<<endl;
-									gotoxy(2, 7);
-									cout<<"precio del producto";
-									
-									gotoxy(32, 3);
-									cout<<codigo[pos];
-									gotoxy(32, 5);
-									cin>>productos[pos];
-									gotoxy(32, 7);
-									cout<<"$";
-									gotoxy(33, 7);
-									cin>>precio[pos];
-								} //Fin if
+									gotoxy(i, lin);
+									cout<<"-";
+								}//Fin for
+								lin +=2;
+							}
+							for(int i=0; i<clin; i++)
+							{
+								for(int i=1; i<=60; i++)
+								{
+									gotoxy(i, lin);
+									cout<<"-";
+								}//Fin for
+								lin += 2;
+							}//Fin if
+							lin = 0;
+							//Columnas
+							for(int i=0; i<9; i++)
+							{
+								gotoxy(1, i);
+								cout<<"|";
+								if(o<9)
+								{
+									gotoxy(30, o);
+									cout<<"|";
+									o++;
+								}//Fin if
 								else
 								{
-									cout<<"El almacen esta lleno"<<endl;
-								} // Fin else
-								pos++; // Incremento de pos
+									gotoxy(30, i);
+									cout<<"|";
+								}//Fin else
+								gotoxy(60, i);
+								cout<<"|";
+							}//Fin if
+					
+								gotoxy(15, 1);
+								cout<<"MODULO DE CAPTURA DE PRODUCTOS"<<endl;
+								codigo [pos]=(pos+1);
+								gotoxy(2, 3);
+								cout<<"Referancia"<<endl;
+								gotoxy(2, 5);
+								cout<<"Producto"<<endl;
+								gotoxy(2, 7);
+								cout<<"precio del producto";
 								
-								gotoxy(1, 10);
-								cout<<"Quiere ingresar otro producto? [S] [N]"<<endl;
-								gotoxy(1, 11);
-									cin>> np;
-								system("cls");
-								o=2;
+								gotoxy(32, 3);
+								cout<<codigo[pos];
+								gotoxy(32, 5);
+								cin>>productos[pos];
+								gotoxy(32, 7);
+								cout<<"$";
+								gotoxy(33, 7);
+								cin>>precio[pos];
+						} //Fin if
+						else
+						{
+							cout<<"El almacen esta lleno"<<endl;
+						} // Fin else
+						pos++; // Incremento de pos
+						
+						gotoxy(1, 10);
+						cout<<"Quiere ingresar otro producto? [S] [N]"<<endl;
+						gotoxy(1, 11);
+							cin>> np;
+						system("cls");
+						o=2;
 					}while(np == "s" || np == "S"); // || -> es para agregar otra condicion or, o,
 					
 					system("pause");
@@ -129,61 +151,80 @@ int main()
 			case 2: system("cls");
 					color(hConsole, 5);
 					
-					for(int i=0; i<pos; i++)
+					gotoxy(15, 1);
+					cout<<"MODULO REPORTE DE PRODUCTOS"<<endl;
+						
+					//Cuerpo de la tabla
+					clin *= pos;
+					//Filas
+					for(int i=0; i<2; i++)
 					{
-						//Cuerpo de la tabla
 						for(int i=1; i<=60; i++)
 						{
-							gotoxy(15, 1);
-							cout<<"MODULO REPORTE DE PRODUCTOS"<<endl;
-							
-							gotoxy(i, 0);
-							cout<<"-";
-							gotoxy(i, 2);
-							cout<<"-";
-							gotoxy(i, 4);
-							cout<<"-";
-							gotoxy(i, 6);
-							cout<<"-";
-							gotoxy(i, 8);
+							gotoxy(i, lin);
 							cout<<"-";
 						}//Fin for
-						for(int i=0; i<9; i++)
+						lin +=2;
+					}
+					for(int i=0; i<clin; i++)
+					{
+						for(int i=1; i<=60; i++)
 						{
-							gotoxy(1, i);
-							cout<<"|";
-							if(o<9)
-							{
-								gotoxy(30, o); o++;
-								cout<<"|";
-							}//Fin if
-							gotoxy(60, i);
+							gotoxy(i, lin);
+							cout<<"-";
+						}//Fin for
+						lin += 2;
+					}//Fin if
+					
+					//Columnas
+					for(int i=0; i<(pos +(6*pos)); i++)
+					{
+						gotoxy(1, i);
+						cout<<"|";
+						if(o<9)
+						{
+							gotoxy(30, o); o++;
 							cout<<"|";
 						}//Fin if
+						else
+						{
+							gotoxy(30, i);
+							cout<<"|";
+						}//Fin else
+						gotoxy(60, i);
+						cout<<"|";
+					}//Fin if
 						
-						gotoxy(2, 3);
+					//Mostrar productos
+					for(int i=0; i<pos; i++)
+					{
+						y+=2;
+						gotoxy(2, y);
 						cout<<"Referancia"<<endl;
-						gotoxy(32, 3);
-						cout<<(z+1);
-						gotoxy(2, 5);
+						gotoxy(32, y);
+						cout<<(codigo[z]);
+						y+=2;
+						gotoxy(2, y);
 						cout<<"Producto"<<endl;
-						gotoxy(32, 5);
+						gotoxy(32, y);
 						cout<<(productos[z]);
-						gotoxy(2, 7);
+						y+=2;
+						gotoxy(2, y);
 						cout<<"precio del producto";
-						gotoxy(32, 7);
-						cout<<"$"<<(precio[z]);		
+						gotoxy(32, y);
+						cout<<"$"<<(precio[z]);	
 						
 						z += 1;
-						o = 2;
-						
-						gotoxy(1, 10);
-						
-						system("pause");
-						system("cls");
-					} //Fin for
+					}
 					
-					z = 0;
+					y+=2;
+					gotoxy(1, y);
+					
+					o=2;
+					y=1;
+					z=0;
+					lin=0;
+					clin=3;
 					
 					system("pause");
 					break;
@@ -403,19 +444,158 @@ int main()
 					
 					system("pause");
 					break;		
-					
+				
 			case 5: system("cls");
+					gotoxy(8, 1);
+					cout<<"Array ordenando el precio de Menor a Mayor"<<endl;
+					
+					//ordenamiento precio por Menor a Mayor
+					/*
+					int i, ubi, auxprecio, auxcodigo; //Control - posicion elemnto - alamacenamiento
+					string auxprod;
+					*/
+					
+					//Recorre ordenar array
+					for(int i=0; i<pos; i++)
+					{
+						ubi = i; //Definir posicion
+						auxprecio = precio[i];
+						auxcodigo = codigo[i];
+						auxprod = productos[i];
+						
+						//Comparar posiciones
+						while((ubi>0)&&(precio[ubi-1]>auxprecio))
+						{
+							precio[ubi]=precio[ubi-1];
+							codigo[ubi]=codigo[ubi-1];
+							productos[ubi]=productos[ubi-1];
+							ubi--;
+						}//Fin while
+						precio[ubi]=auxprecio;
+						codigo[ubi]=auxcodigo;
+						productos[ubi]=auxprod;
+					}//Fin for
+						
+					//Cuerpo de la tabla
+					clin *= pos;
+					//Filas
+					for(int i=0; i<2; i++)
+					{
+						for(int i=1; i<=60; i++)
+						{
+							gotoxy(i, lin);
+							cout<<"-";
+						}//Fin for
+						lin +=2;
+					}
+					for(int i=0; i<clin; i++)
+					{
+						for(int i=1; i<=60; i++)
+						{
+							gotoxy(i, lin);
+							cout<<"-";
+						}//Fin for
+						lin += 2;
+					}//Fin if
+					
+					//Columnas
+					for(int i=0; i<(pos +(6*pos)); i++)
+					{
+						gotoxy(1, i);
+						cout<<"|";
+						if(o<9)
+						{
+							gotoxy(30, o); o++;
+							cout<<"|";
+						}//Fin if
+						else
+						{
+							gotoxy(30, i);
+							cout<<"|";
+						}//Fin else
+						gotoxy(60, i);
+						cout<<"|";
+					}//Fin if
+						
+					//Mostrar productos
+					for(int i=0; i<pos; i++)
+					{
+						y+=2;
+						gotoxy(2, y);
+						cout<<"Referancia"<<endl;
+						gotoxy(32, y);
+						cout<<(codigo[z]);
+						y+=2;
+						gotoxy(2, y);
+						cout<<"Producto"<<endl;
+						gotoxy(32, y);
+						cout<<(productos[z]);
+						y+=2;
+						gotoxy(2, y);
+						cout<<"precio del producto";
+						gotoxy(32, y);
+						cout<<"$"<<(precio[z]);	
+						
+						z += 1;
+					}
+					
+					y+=2;
+					gotoxy(1, y);
+					
+					o=2;
+					y=1;
+					z=0;
+					lin=0;
+					clin=3;
+					
+					system("pause");
+					break;	
+					
+			case 6: system("cls");
+					cout<<"Orden alfabetico"<<endl;
+					
+					//ordenamiento Alfavetico
+					/*
+					int i, ubi, auxprecio, auxcodigo; //Control - posicion elemnto - alamacenamiento
+					string auxprod;
+					*/
+/*					
+					//Recorre ordenar array
+					for(int i=0; i<5; i++)
+					{
+						ubi = i; //Definir posicion
+						aux = datos[i];
+						
+						//Comparar posiciones
+						while((ubi>0)&&(datos[ubi-1]>aux))
+						{
+							datos[pos]=datos[ubi-1];
+							ubi--;
+						}//Fin while
+						datos[ubi]=aux;
+					}//Fin for
+					
+					cout<<endl<<"Array ordenado"<<endl;
+					for(int i=0; i<5; i++)
+					{
+						cout<<"array "<<datos[i]<<" ";
+					}//Fin for 
+*/									
+					system("pause");
+					break;
+									
+			case 7: system("cls");
 					cout<<"Salir"<<endl;
 					system("pause");
-					break;			
-					
+					break;				
+									
 			default: system("cls"); 
 					cout<<"Opcion no valida"<<endl;
 					system("pause");
 					break;
 		} //Fin switch
 	
-	}while(opc!=5); //Fin do
+	}while(opc!=7); //Fin do
 	
 	getch();
 	return 0;
