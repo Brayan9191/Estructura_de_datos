@@ -54,7 +54,7 @@ int main()
 		color(hConsole, 6);								//Naranja_Amarrollo - 6
 		cout<<("4. Modificar producto")<<endl;
 		color(hConsole, 9);								//Azul claro - 9
-		cout<<("5. Ordenar precio por Menor o Mayor")<<endl;
+		cout<<("5. Ordenar precio por Menor a Mayor")<<endl;
 		color(hConsole, 1);								//Azul oscuro - 1
 		cout<<("6. Orden alfabetico ")<<endl;
 		color(hConsole, 4);								//rojo - 4
