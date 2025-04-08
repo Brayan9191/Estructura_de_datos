@@ -24,7 +24,7 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
  int main()
  {
  	//Declarar variables
-	int opc, tam = 4, pos = 0, bus, pr;
+	int opc, tam = 1, pos = 0, bus, pr, lin, clin = 3, col=9, o=2, c=1, pilar;
 	string np; // Para anadir nuevo producto
 	bool bandera; 
 	
@@ -33,24 +33,44 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	int codigo[tam];
 	int precio[tam];
  	
-	 //Cuerpo de la tabla
-	for(int i=1; i<=50; i++)
+	//Cuerpo de la tabla
+	clin *= tam;
+	//Flias
+	for(int i=0; i<2; i++)
 	{
-		gotoxy(i, 1);
-		cout<<"-";
-		gotoxy(i, 3);
-		cout<<"-";
-		gotoxy(i, 5);
-		cout<<"-";
-		gotoxy(i, 7);
-		cout<<"-";
+		for(int i=1; i<=50; i++)
+		{
+			gotoxy(i, lin);
+			cout<<"-";
+		}//Fin for
+		lin +=2;
+	}
+		
+	for(int i=0; i<clin; i++)
+	{
+		for(int i=1; i<=50; i++)
+		{
+			gotoxy(i, lin);
+			cout<<"-";
+		}//Fin for
+		lin +=2;
 	}//Fin if
-	for(int i=1; i<=20; i++)
+	
+	//Columnas
+	for(int i=0; i<col; i++)
 	{
 		gotoxy(1, i);
 		cout<<"|";
-		gotoxy(30, i);
-		cout<<"|";
+		if((o<9))
+		{
+			gotoxy(30, o); o++;
+			cout<<"|";
+		}//Fin if
+		else
+		{
+			gotoxy(30, i);
+			cout<<"|";
+		}//Fin else
 		gotoxy(50, i);
 		cout<<"|";
 	}//Fin if
@@ -58,20 +78,22 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	//Salida en pantalla
 	
 		codigo [pos]=(pos+1);
-		gotoxy(2, 2);
+		gotoxy(2, 3);
 		cout<<"Referancia"<<endl;
-		gotoxy(32, 2);
+		gotoxy(32, 3);
 		cout<<codigo[pos];
-		gotoxy(2, 4);
+		gotoxy(2, 5);
 		cout<<"Producto"<<endl;
-		gotoxy(32, 4);
+		gotoxy(32, 5);
 		cin>>productos[pos];
-		gotoxy(2, 6);
+		gotoxy(2, 7);
 		cout<<"precio del producto";
-		gotoxy(32, 6);
+		gotoxy(32, 7);
 		cout<<"$";
-		gotoxy(33, 6);
+		gotoxy(33, 7);
 		cin>>precio[pos];
+		
+		system("pause");
 
 	system("cls");
 	cout<<"MODULO REPORTE DE PRODUCTOS"<<endl;
