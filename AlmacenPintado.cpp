@@ -58,7 +58,9 @@ int main()
 		color(hConsole, 1);								//Azul oscuro - 1
 		cout<<("6. Orden alfabetico ")<<endl;
 		color(hConsole, 4);								//rojo - 4
-		cout<<("7. Salir")<<endl;
+		cout<<("7. Ordenado por referencia")<<endl;
+		color(hConsole, 4);								//rojo - 4
+		cout<<("8. Salir")<<endl;
 		color(hConsole, 12);							//Rosa - 12
 		cout<<("Selecciona  una opcion del menu: ");
 		cin>>opc;
@@ -134,6 +136,7 @@ int main()
 						else
 						{
 							cout<<"El almacen esta lleno"<<endl;
+							break;
 						} // Fin else
 						pos++; // Incremento de pos
 						
@@ -304,6 +307,7 @@ int main()
 					{
 						color(hConsole, 4);
 						cout<<"El producto buscado no existe"<<endl;
+						break;
 					}
 					
 					gotoxy(1, 10);
@@ -552,50 +556,223 @@ int main()
 					break;	
 					
 			case 6: system("cls");
-					cout<<"Orden alfabetico"<<endl;
+					gotoxy(12, 1);
+					cout<<"Array ordenando alfabeticamente"<<endl;
 					
 					//ordenamiento Alfavetico
 					/*
 					int i, ubi, auxprecio, auxcodigo; //Control - posicion elemnto - alamacenamiento
 					string auxprod;
 					*/
-/*					
+										
 					//Recorre ordenar array
-					for(int i=0; i<5; i++)
+					for(int i=0; i<pos; i++)
 					{
 						ubi = i; //Definir posicion
-						aux = datos[i];
+						auxprecio = precio[i];
+						auxcodigo = codigo[i];
+						auxprod = productos[i];
 						
 						//Comparar posiciones
-						while((ubi>0)&&(datos[ubi-1]>aux))
+						if((ubi>0)&&(productos[ubi-1]>auxprod))
 						{
-							datos[pos]=datos[ubi-1];
+							precio[ubi]=precio[ubi-1];
+							codigo[ubi]=codigo[ubi-1];
+							productos[ubi]=productos[ubi-1];
 							ubi--;
 						}//Fin while
-						datos[ubi]=aux;
+						precio[ubi]=auxprecio;
+						codigo[ubi]=auxcodigo;
+						productos[ubi]=auxprod;
 					}//Fin for
 					
-					cout<<endl<<"Array ordenado"<<endl;
-					for(int i=0; i<5; i++)
+					//Cuerpo de la tabla
+					clin *= pos;
+					//Filas
+					for(int i=0; i<2; i++)
 					{
-						cout<<"array "<<datos[i]<<" ";
-					}//Fin for 
-*/									
+						for(int i=1; i<=60; i++)
+						{
+							gotoxy(i, lin);
+							cout<<"-";
+						}//Fin for
+						lin +=2;
+					}
+					for(int i=0; i<clin; i++)
+					{
+						for(int i=1; i<=60; i++)
+						{
+							gotoxy(i, lin);
+							cout<<"-";
+						}//Fin for
+						lin += 2;
+					}//Fin if
+					
+					//Columnas
+					for(int i=0; i<(pos +(6*pos)); i++)
+					{
+						gotoxy(1, i);
+						cout<<"|";
+						if(o<9)
+						{
+							gotoxy(30, o); o++;
+							cout<<"|";
+						}//Fin if
+						else
+						{
+							gotoxy(30, i);
+							cout<<"|";
+						}//Fin else
+						gotoxy(60, i);
+						cout<<"|";
+					}//Fin if
+					
+					//Mostrar productos
+					for(int i=0; i<pos; i++)
+					{
+						y+=2;
+						gotoxy(2, y);
+						cout<<"Referancia"<<endl;
+						gotoxy(32, y);
+						cout<<(codigo[z]);
+						y+=2;
+						gotoxy(2, y);
+						cout<<"Producto"<<endl;
+						gotoxy(32, y);
+						cout<<(productos[z]);
+						y+=2;
+						gotoxy(2, y);
+						cout<<"precio del producto";
+						gotoxy(32, y);
+						cout<<"$"<<(precio[z]);	
+						
+						z += 1;
+					}
+					
+					y+=2;
+					gotoxy(1, y);
+					
+					o=2;
+					y=1;
+					z=0;
+					lin=0;
+					clin=3;
+									
 					system("pause");
 					break;
 									
 			case 7: system("cls");
-					cout<<"Salir"<<endl;
+					gotoxy(12, 1);
+					cout<<"Array ordenando por referencia"<<endl;
+					
+					//Recorre ordenar array
+					for(int i=0; i<pos; i++)
+					{
+						ubi = i; //Definir posicion
+						auxprecio = precio[i];
+						auxcodigo = codigo[i];
+						auxprod = productos[i];
+						
+						//Comparar posiciones
+						if((ubi>0)&&(codigo[ubi-1]>auxcodigo))
+						{
+							precio[ubi]=precio[ubi-1];
+							codigo[ubi]=codigo[ubi-1];
+							productos[ubi]=productos[ubi-1];
+							ubi--;
+						}//Fin while
+						precio[ubi]=auxprecio;
+						codigo[ubi]=auxcodigo;
+						productos[ubi]=auxprod;
+					}//Fin for
+					
+					//Cuerpo de la tabla
+					clin *= pos;
+					//Filas
+					for(int i=0; i<2; i++)
+					{
+						for(int i=1; i<=60; i++)
+						{
+							gotoxy(i, lin);
+							cout<<"-";
+						}//Fin for
+						lin +=2;
+					}
+					for(int i=0; i<clin; i++)
+					{
+						for(int i=1; i<=60; i++)
+						{
+							gotoxy(i, lin);
+							cout<<"-";
+						}//Fin for
+						lin += 2;
+					}//Fin if
+					
+					//Columnas
+					for(int i=0; i<(pos +(6*pos)); i++)
+					{
+						gotoxy(1, i);
+						cout<<"|";
+						if(o<9)
+						{
+							gotoxy(30, o); o++;
+							cout<<"|";
+						}//Fin if
+						else
+						{
+							gotoxy(30, i);
+							cout<<"|";
+						}//Fin else
+						gotoxy(60, i);
+						cout<<"|";
+					}//Fin if
+					
+					//Mostrar productos
+					for(int i=0; i<pos; i++)
+					{
+						y+=2;
+						gotoxy(2, y);
+						cout<<"Referancia"<<endl;
+						gotoxy(32, y);
+						cout<<(codigo[z]);
+						y+=2;
+						gotoxy(2, y);
+						cout<<"Producto"<<endl;
+						gotoxy(32, y);
+						cout<<(productos[z]);
+						y+=2;
+						gotoxy(2, y);
+						cout<<"precio del producto";
+						gotoxy(32, y);
+						cout<<"$"<<(precio[z]);	
+						
+						z += 1;
+					}
+					
+					y+=2;
+					gotoxy(1, y);
+					
+					o=2;
+					y=1;
+					z=0;
+					lin=0;
+					clin=3;
+					
 					system("pause");
 					break;				
-									
+							
+			case 8: system("cls");
+					cout<<"Salir"<<endl;
+					system("pause");
+					break;
+							
 			default: system("cls"); 
 					cout<<"Opcion no valida"<<endl;
 					system("pause");
 					break;
 		} //Fin switch
 	
-	}while(opc!=7); //Fin do
+	}while(opc!=8); //Fin do
 	
 	getch();
 	return 0;
