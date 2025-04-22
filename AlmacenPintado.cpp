@@ -70,7 +70,8 @@ int main()
 			case 1: system("cls");
 					//Captura de productos
 					color(hConsole, 2);
-					do{
+					do
+					{
 						if(pos<tam)
 						{
 							//Cuerpo de la tabla
@@ -231,86 +232,9 @@ int main()
 					
 					system("pause");
 					break;
-					
+
 			case 3: system("cls");
-					cout<<"Modulo Buscar productos"<<endl;
-					cout<<"Referencia del producto buscado: ";
-					cin>>bus;
 					
-					for(int i=0; i<pos; i++)
-					{
-						// Comparacion
-						if(bus==codigo[i])
-						{
-							pr= i;
-							bandera=true;
-							break;
-						}
-						else
-						{
-							bandera=false;
-						} //Fin else
-					} //Fin for
-					// Validar bendera
-					if(bandera==true)
-					{
-						color(hConsole, 2);
-						cout<<"El producto si existe"<<endl;
-						system("pause");
-						system("cls");
-						
-						color(hConsole, 6);
-						gotoxy(15, 1);
-						cout<<"MODULO Buscar producto"<<endl;
-						
-						//Cuerpo de la tabla
-						for(int i=1; i<=60; i++)
-						{								
-							gotoxy(i, 0);
-							cout<<"-";
-							gotoxy(i, 2);
-							cout<<"-";
-							gotoxy(i, 4);
-							cout<<"-";
-							gotoxy(i, 6);
-							cout<<"-";
-							gotoxy(i, 8);
-							cout<<"-";
-						}//Fin if
-						for(int i=0; i<9; i++)
-						{
-							gotoxy(1, i);
-							cout<<"|";
-							if(o<9)
-							{
-								gotoxy(30, o); o++;
-								cout<<"|";
-							}//Fin if
-							gotoxy(60, i);
-							cout<<"|";
-						}//Fin if
-						
-						gotoxy(2, 3);
-						cout<<"Referencia";
-						gotoxy(32, 3);
-						cout<<(codigo[pr]);
-						gotoxy(2, 5);
-						cout<<"Productos";
-						gotoxy(32, 5);
-						 cout<<(productos[pr]);
-						gotoxy(2, 7);
-						cout<<"Precio";
-						gotoxy(32, 7);
-						cout<<(precio[pr]);
-					}
-					else
-					{
-						color(hConsole, 4);
-						cout<<"El producto buscado no existe"<<endl;
-						break;
-					}
-					
-					gotoxy(1, 10);
 					
 					system("pause");
 					break;
