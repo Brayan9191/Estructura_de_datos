@@ -46,7 +46,7 @@ int main()
 {	
 	//Declarar variables
 	int opc;
-	string np;
+	string np ;
 	
 	//Salida a pantalla
 	do
@@ -149,7 +149,7 @@ int main()
 					cout<<"Opcion no valida"<<endl;
 					system("pause");
 					break;
-		}
+		}// Fin switch
 	}while(opc!=6); //Fin do
 		
 	getch();
