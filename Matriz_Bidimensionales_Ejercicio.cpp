@@ -17,6 +17,7 @@ using namespace std;
 //	Variables globales
 const int v=4, d=8;
 int ventas [v] [d];
+int POS=0;
 
 //Declarar funciones
 void MatrizCero();
@@ -43,32 +44,42 @@ int main()
 		cout<<"5. Modificar ventas"<<endl;
 		cout<<"6. Eliminar ventas"<<endl;
 		cout<<"7. Salir"<<endl;
+		cout<<("\nSelecciona  una opcion del menu: ");
+		cin>>opc;
 		
 		switch(opc)
 		{
 			case 1: 
 				system("cls");
 				fflush(stdin);
-/*				//Capturar productos
+				//1. Captura ventas
 				do
 				{	
-					tabla(1);	
-					Capturar_Productos();
+//					tabla(1);	
+					Matriz_Captura();
 					
 					POS++; // Incremento de pos
 					gotoxy(1, 10);
-					cout<<"Quiere ingresar otro producto? [S] [N]"<<endl;
+					cout<<"Quiere ingresar otro numero de ventas? [S] [N]"<<endl;
 					cin>> np;
 					system("cls");
 				}while(np == "s" || np == "S"); // || -> es para agregar otra condicion or, o,	
-*/					
+					
 				system("pause");
 				break;
 			
 			case 2: 
 				system("cls");
 				fflush(stdin);
-				//4. Modificar producto
+				//2. Reporte ventas
+				for(int f=0; f<3; f++)
+				{
+					for(int c=0; c<3; c++)
+					{
+						cout<<ventas[f][c] <<" ";
+					}//	Fin for columnas
+					cout<<endl;
+				}//	Fin for filas
 						
 				system("pause");
 				break;	
@@ -76,15 +87,16 @@ int main()
 			case 3: 
 				system("cls");
 				fflush(stdin);
-				//4. Modificar producto
-						
+				//3. Reporte vendedor con mas ventas
+				
+					
 				system("pause");
 				break;
 				
 			case 4: 
 				system("cls");
 				fflush(stdin);
-				//4. Modificar producto
+				//4. Reporte vendedor con menos ventas
 						
 				system("pause");
 				break;
@@ -92,7 +104,7 @@ int main()
 			case 5: 
 				system("cls");
 				fflush(stdin);
-				//4. Modificar producto
+				//5. Modificar ventas
 						
 				system("pause");
 				break;
@@ -100,7 +112,7 @@ int main()
 			case 6: 
 				system("cls");
 				fflush(stdin);
-				//4. Modificar producto
+				//6. Eliminar ventas
 						
 				system("pause");
 				break;
@@ -108,7 +120,7 @@ int main()
 			case 7: 
 				system("cls");
 				fflush(stdin);
-				//4. Modificar producto
+				//7. Salir
 						
 				system("pause");
 				break;	
@@ -119,7 +131,7 @@ int main()
 				system("pause");
 				break;
 		}// Fin switch
-	}while(opc!=6); //Fin do
+	}while(opc!=7); //Fin do
 	
 		
 	getch();
@@ -143,22 +155,21 @@ void Matriz_Captura()
 	//Declarar variables
 	int Vendedor=1;
 	
-	//	Captura de datos
-	for(int f=0; f<v; f++)
+	for(int f=0; f<(v-1); f++)
 	{
-		for(int c=0; c<d; c++)
+		for(int c=0; (d-1)<3; c++)
 		{
-			
+			cout<<"Ingrese el numero de ventas: ";
+			cin>>ventas[f][c];
 		}//	Fin for columnas
 	}//	Fin for filas
 }// Fin Matriz_Captura
 
 void Mostrar_Matriz()
 {
-	//	Mostrar datos
-	for(int f=0; f<v; f++)
+	for(int f=0; f<4; f++)
 	{
-		for(int c=0; c<d; c++)
+		for(int c=0; c<4; c++)
 		{
 			cout<<ventas[f][c] <<" ";
 		}//	Fin for columnas
