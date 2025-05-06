@@ -1,6 +1,9 @@
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
+#include <vector>
+#include <limits>
+
 using namespace std;
 
 //Codigo gotoxy
@@ -14,13 +17,14 @@ void gotoxy(int x,int y){
 } 
 
 // Variables globales
-int E = e, N = n;
-float notas[E][N] = {0}; // Inicializo notas en 0
-float promedio[E] = {0}; // Inicializo promedio en 0
-string Estu[E];	//Para ordenar
-string Notas[N];//Para ordenar
-int POS=0;
-string estudiantes[];
+int POS=0, E, N;
+vector<vector<float> > notas;   // Matriz para almacenar las notas
+vector<string> estudiantes;    // Lista de estudiantes
+vector<vector<float> > Notas;   
+vector<string> Estu;    // Lista de estudiantes
+vector<vector<float> > promedio;
+
+
 
 // Declarar funciones
 void tabla(int pos)
@@ -45,7 +49,7 @@ void tabla(int pos)
 	//Filas
 	for(int i=0; i<=(clin); i++)
 	{
-		for(int u=1; u<=125; u++)
+		for(int u=1; u<=55; u++)
 		{
 			gotoxy(u, lin);
 			cout<<"-";
@@ -55,35 +59,17 @@ void tabla(int pos)
 	//Columnas
 	for(int i=2; i<(5+(2*pos)); i++)
 	{
-		//Fecha
 		gotoxy(0, i);
 		cout<<"|";
-		//Detalle
 		gotoxy(15, i);
 		cout<<"|";
-		//V. unitario
 		gotoxy(25, i);
 		cout<<"|";
-		//Cantidad 	Entrada
 		gotoxy(35, i);
 		cout<<"|";
-		//Total
 		gotoxy(45, i);
 		cout<<"|";
-		//Cantidad  Salida
-		gotoxy(71, i);
-		cout<<"|";
-		//Total
-		gotoxy(83, i);
-		cout<<"|";
-		//Cantidad  Saldo
-		gotoxy(98, i);
-		cout<<"|";
-		//Total
-		gotoxy(110, i);
-		cout<<"|";
-		//Columna final 
-		gotoxy(125, i);
+		gotoxy(55, i);
 		cout<<"|";		
 	}
 	
@@ -92,99 +78,118 @@ void tabla(int pos)
 	
 	gotoxy(2, 3);
     cout << "ESTUDIANTE";
-    gotoxy(15, 3);
-
+    gotoxy(17, 3);
 	cout << "Nota 1";
-    gotoxy(34, 3);
+    gotoxy(27, 3);
     cout << "Nota 2";
-    //Entrada
-    gotoxy(46, 1);
+    gotoxy(37, 1);
     cout << "Nota 3";
-	gotoxy(46, 3);
-    cout << "CANTIDAD";
-    gotoxy(58, 3);
-    cout << "TOTAL";
-    //Salidas
-    gotoxy(73, 1);
-    cout << "SALIDAS";
-    gotoxy(73, 3);
-    cout << "CANTIDAD";
-    gotoxy(85, 3);
-    cout << "TOTAL";
+	gotoxy(47, 3);
+    cout << "Promedio";
 }//Fin funcion tabla
 
-cout CantEyN()
+int CantEyN()
 {
-	cout<<"Ingrese la cantidad de notas: ";
-	cin>>n;
-	cout<<"Cuantos estudiantes quiere ingresar: "
-	cin>>e;
-	for(int i=0; i<E; i++)
-	{
-		cout<<"Ingrese el nombre del estudiante"
-		cin>>estudiantes[i];
-	}
-	
+	cout << "Ingrese la cantidad de estudiantes: ";
+    cin >> E;
+
+    // Validar entrada
+    while (cin.fail() || E <= 0) {
+        cin.clear(); // Limpia el estado de error de cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora entradas inválidas
+        cout << "Por favor, ingrese un número válido de estudiantes: ";
+        cin >> E;
+    }
+
+    cout << "Ingrese la cantidad de notas por estudiante: ";
+    cin >> N;
+
+    // Validar entrada
+    while (cin.fail() || N <= 0) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Por favor, ingrese un número válido de notas: ";
+        cin >> N;
+    }
+
+    // Redimensionar estructuras de datos
+    notas.resize(E, vector<float>(N, 0)); // Inicializar la matriz de notas en 0
+    estudiantes.resize(E, "");           // Inicializar los nombres de los estudiantes
+    
+    // Capturar nombres de los estudiantes
+    for (int i = 0; i < E; ++i) {
+        cout << "Ingrese el nombre del estudiante " << i + 1 << ": ";
+        cin >> estudiantes[i];
+    }
+
+    cout << "\nDatos inicializados correctamente.\n";
 }
 
 void capturaNotas() 
 {
-/*  for (int i = 0; i < v; i++) 
-	{
-        cout << "\nCapturando notas para: " << estudiantes[i] << endl;
-        for (int j = 0; j < d; j++) 
-		{
-            cout << "  Ingrese nota " << j + 1 << ": ";
-            cin >> notas[i][j];
-        }
-    }
-*/
-    int cod, reg=0;
-    string conf;
+	int cod;
     float nota;
+
+    cout << "Listado de estudiantes\n";
+    for (int i = 0; i < E; i++) {
+        cout << (i + 1) << " - " << estudiantes[i] << endl;
+    }
+
+    // Seleccionar estudiante
+    cout << "Ingrese el código del estudiante (1-" << E << "): ";
+    cin >> cod;
+
+    if (cod < 1 || cod > E) {
+        cout << "Código de estudiante inválido.\n";
+        return;
+    }
+
+    cout << "Capturando notas para " << estudiantes[cod - 1] << ":\n";
 	
-	cout<<"Listado de estudiantes\n";
-	for(int i=0; i<4; i++)
-	{
-		cout<<(i+1)<<" - "<<estudiantes[i]<<endl;
-	}//Fin estudiantes
-	
-	//Capturar estudiantes
-	cout<<"Ingrese el codigo del estudiantes....: ";
-	cin>>cod;
-	cout<<"Selecciono a "<<estudiantes[cod-1];
-	
-	cout<<" Si este es el estudiante inserte [S] si no otra tecla...: ";
-	cin>>conf;
-	
-	while((conf=="S" || conf=="s") && (reg<3))
-	{
-		cout<<" Ingrese la nota ["<<(reg+1)<<"]....:";
-		cin>>nota;
-		//	Asignar nota a la matriz notas
-		notas[cod-1][reg]=nota;
-		reg++;
-	}//Fin ciclo
+	tabla(1);
     
-    cout << "\nNotas capturadas exitosamente!\n";	
+    int F=27;
+    
+	// Capturar las notas del estudiante
+    for (int i = 0; i < N; i++) {
+        gotoxy(F,5);
+        cin >> nota;
+        F+=10;
+
+        // Validar nota
+        while (cin.fail() || nota < 0 || nota > 5) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Por favor, ingrese una nota válida (0-5): ";
+            cin >> nota;
+        }
+
+        notas[cod - 1][i] = nota;
+    }
+
+    cout << "Notas capturadas exitosamente.\n";	
 }// Captura de notas
 
 void reporteNotas() {
-    int pos = 0;
-    
-	cout << "REPORTE DE NOTAS\n";
-    cout << "Estudiante\tNota1\tNota2\tNota3\tPromedio\n";
+    cout << "REPORTE DE NOTAS\n";
+    cout << "Estudiante\t";
+
+    for (int i = 1; i <= N; i++) {
+        cout << "Nota" << i << "\t";
+    }
+
+    cout << "Promedio\n";
+
     for (int i = 0; i < E; i++) {
-        int suma = 0;
+        float suma = 0;
         cout << estudiantes[i] << "\t";
+
         for (int j = 0; j < N; j++) {
             cout << notas[i][j] << "\t";
             suma += notas[i][j];
         }
-        promedio[pos] = suma / (float)N;
-        cout << promedio[pos] << endl;
-        
-        pos++;
+
+        cout << suma / N << endl;
     }
 }//Reporte de notas
 
@@ -351,14 +356,15 @@ int main()
         {
             case 1: 
                 system("cls");
-                capturaNotas();
+                
+				capturaNotas();
                 
                 system("pause");
                 break;
 			
             case 2: 
                 system("cls");
-//              	tabla(E);
+              	tabla(E);
                 system("pause");
 				reporteNotas();
                 
