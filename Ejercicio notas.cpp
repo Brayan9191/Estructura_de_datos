@@ -158,8 +158,14 @@ void capturaNotas()
             gotoxy(F,5);
 			cin >> nota;
         }
+        notas[cod - 1][i] = nota;
+        suma += nota;
+        
         F+=9;
     }
+	Promedio[cod - 1] = suma / N;
+	gotoxy(F, 5);
+	cout << Promedio[cod - 1];
 	
 	gotoxy(1 ,8);
     cout << "Notas capturadas exitosamente.";	
@@ -179,10 +185,8 @@ void reporteNotas()
         for (int j = 0; j < N; j++) {
             gotoxy(col+2, columna);
 			cout << notas[i][j];
-            col+=9;
-        	suma += notas[i][j];
+            col+=9;	
         }
-		Promedio[i] = suma / N;
 		gotoxy(col+2, columna);
         cout << Promedio[i];
         columna+=2;
@@ -267,11 +271,11 @@ void editarNotas() {
     }
 
     // Selección del estudiante
-    cout << "Ingrese el código del estudiante a editar: ";
+    cout << "Ingrese el codigo del estudiante a editar: ";
     cin >> cod;
 
     if (cod < 1 || cod > E) {
-        cout << "Código de estudiante inválido.\n";
+        cout << "Codigo de estudiante invalido.\n";
         return;
     }
     
@@ -288,11 +292,11 @@ void editarNotas() {
 
     // Selección de la nota a editar
     gotoxy(2,8);
-    cout << "Ingrese el número de la nota que desea editar (1-" << N << "): ";
+    cout << "Ingrese el numero de la nota que desea editar (1-" << N << "): ";
     cin >> reg;
 
     if (reg < 1 || reg > N) {
-        cout << "Número de nota inválido.\n";
+        cout << "Numero de nota inválido.\n";
         return;
     }
 
@@ -302,7 +306,7 @@ void editarNotas() {
     cin >> nuevaNota;
 
     if (nuevaNota < 0 || nuevaNota > 100) {
-        cout << "Nota inválida. Debe estar entre 0 y 10\n";
+        cout << "Nota invalida. Debe estar entre 0 y 10\n";
         return;
     }
     notas[cod - 1][reg - 1] = nuevaNota;
@@ -326,11 +330,11 @@ void eliminarNotas() {
     }
 
     // Selección del estudiante
-    cout << "Ingrese el código del estudiante para eliminar notas: ";
+    cout << "Ingrese el codigo del estudiante para eliminar notas: ";
     cin >> cod;
 
     if (cod < 1 || cod > E) {
-        cout << "Código de estudiante inválido.\n";
+        cout << "Codigo de estudiante invalido.\n";
         return;
     }
 	
@@ -344,7 +348,7 @@ void eliminarNotas() {
 	
     // Confirmación de eliminación
     gotoxy(2,8);
-    cout << "¿Desea eliminar TODAS las notas de este estudiante? Inserte [S] para confirmar, o cualquier otra tecla para eliminar una nota especifica: \n";
+    cout << "Desea eliminar TODAS las notas de este estudiante? Inserte [S] para confirmar, o cualquier otra tecla para eliminar una nota especifica: \n";
     cin >> conf;
 
     if (conf == "S" || conf == "s") {
@@ -359,11 +363,11 @@ void eliminarNotas() {
 
         // Selección de la nota a eliminar
         gotoxy(2,8);
-        cout << "Ingrese el número de la nota que desea eliminar (1-" << N << "): ";
+        cout << "Ingrese el numero de la nota que desea eliminar (1-" << N << "): ";
         cin >> reg;
 
         if (reg < 1 || reg > N) {
-            cout << "Número de nota inválido.\n";
+            cout << "Numero de nota invalido.\n";
             return;
         }
 
@@ -385,8 +389,8 @@ int main()
         //Opciones del menu
         cout << "1. Captura notas" << endl;
         cout << "2. Reporte notas" << endl;
-        cout << "3. Reporte Estudiante con mayor nota" << endl;
-        cout << "4. Reporte Estudiante con menor nota" << endl;
+        cout << "3. Reporte Estudiante con mayor Promedio" << endl;
+        cout << "4. Reporte Estudiante con menor Promedio" << endl;
         cout << "5. Modificar notas" << endl;
         cout << "6. Eliminar notas" << endl;
         cout << "7. Salir" << endl;
