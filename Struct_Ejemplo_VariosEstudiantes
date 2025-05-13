@@ -9,7 +9,7 @@ struct Estudiante
   int cod;
   char nombre[10];
   int edad;
-}  estu_1;
+}  estu_1, estu_2;
 
 int main()
 {
@@ -22,10 +22,23 @@ int main()
     cout<<"Edad del estudiante: ";
     cin>>estu_1.edad;
 
+    //Captura datos estudiante dos
+    cout<<"Codigo: ";
+    cin>>estu_2.cod;
+    ffluch(stdin);
+    cout<<"Nombre del estudiante: ";
+    cin.getline(estu_2.nombre, 10, '\n');
+    cout<<"Edad: ";
+    cin>>estu_2.edad;
+
     //Salida de datos
     cout<<"Codigo: "<<estu_1.cod<<endl;
     cout<<"Nombre: "<<estu_1.nombre<<endl;
-    cout<<"Edad: "<<estu_1.edad<<endl;
+    cout<<"Edad..: "<<estu_1.edad<<endl;
+    cout<<endl;
+    cout<<"Codigo: "<<estu_2.cod<<endl;
+    cout<<"Nombre: "<<estu_2.nombre<<endl;
+    cout<<"Edad..: "<<estu_2.edad<<endl;
     
     getch;
     return 0;
