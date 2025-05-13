@@ -16,8 +16,12 @@ int main()
     cout<<"Ingrese el codigo: ";
     cin>>estu_1.cod;
     cout<<"\nIngrese el nombre del estudiante: ";
-    cin>>getline(estu_1.nombre, 10);
+    cin.estu_1.nombre;
 
+    //Salida de datos
+    cout<<"Codigo: "<<estu_1.cod<<endl;
+    cout<<"Nombre: "<<estu_1.nombre<<endl;
+    
     getch;
     return 0;
 }
