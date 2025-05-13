@@ -1,0 +1,32 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+//creacion del struct
+struct Estudiante
+{
+  int cod;
+  char nombre[10];
+  int edad;
+}  estu_1;
+
+int main()
+{
+    //Capturar datos
+    cout<<"Ingrese el codigo: ";
+    cin>>estu_1.cod;
+    fflush(stdin);                                //Limpia el cache, la memoria temporal, Se usa antes o despues del getline dependiend de en donde esta en la funcion struct, 
+    cout<<"Ingrese el nombre del estudiante: ";
+    cin.getline(estu_1.nombre, 10, '\n');         //getline : Para capturar datos despues del espacio
+    cout<<"Edad del estudiante: ";
+    cin>>estu_1.edad;
+
+    //Salida de datos
+    cout<<"Codigo: "<<estu_1.cod<<endl;
+    cout<<"Nombre: "<<estu_1.nombre<<endl;
+    cout<<"Edad: "<<estu_1.edad<<endl;
+    
+    getch;
+    return 0;
+}
