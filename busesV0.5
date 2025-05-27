@@ -1,0 +1,251 @@
+#include <iostream>
+#include <cstring>
+#include <conio.h>
+#include<windows.h>
+
+// Definir colores ANSI
+#define ROJO "\033[31m"
+#define VERDE "\033[32m"
+#define AZUL "\033[34m"
+#define AMARILLO "\033[33m"
+#define RESET "\033[0m"
+
+using namespace std;
+
+//Codigo gotoxy
+ void gotoxy(int x,int y){  
+      HANDLE hcon;  
+      hcon = GetStdHandle(STD_OUTPUT_HANDLE);  
+      COORD dwPos;  
+      dwPos.X = x;  
+      dwPos.Y= y;  
+      SetConsoleCursorPosition(hcon,dwPos);  
+ } 
+
+// Estructura para buses
+struct Bus {
+    int id;
+    char ruta[50];
+    char horario[20];
+    float precio;
+};
+
+// Estructura para pasajeros
+struct Pasajero {
+    int tam = 5;
+	int id;
+    char nombre[50];
+    int busID;
+};
+
+// Funciones para buses
+void listarBuses(Bus buses[], int total) {
+cout << AZUL << "\n===== LISTADO DE BUSES =====\n" << RESET;
+    for (int i = 0; i < total; i++) 
+	{
+        cout << AMARILLO << "Bus ID: " << buses[i].id << RESET
+             << " | Ruta: " << VERDE << buses[i].ruta << RESET
+             << " | Horario: " << buses[i].horario
+             << " | Precio: " << ROJO << "$" << buses[i].precio << RESET << endl;
+	}
+}
+
+
+// Funciones para pasajeros
+void agregarPasajero(Pasajero pasajeros[], int &total) 
+{
+    cout << "\nIngrese ID del pasajero: ";
+    cin>> pasajeros[total].id;
+
+    cin.ignore();
+    cout << "Ingrese nombre del pasajero: ";
+    cin.getline(pasajeros[total].nombre, 50);
+
+    cout << "Ingrese ID del bus asignado: ";
+    cin>> pasajeros[total].busID;
+
+    total++;
+    cout << VERDE << "Pasajero agregado correctamente.\n" << RESET;
+}
+
+void eliminarPasajero(Pasajero pasajeros[], int &total, int idEliminar) {
+    for (int i = 0; i < total; i++) 
+	{
+        if (pasajeros[i].id == idEliminar) {
+            for (int j = i; j < total - 1; j++) {
+                pasajeros[j] = pasajeros[j + 1]; // Mueve elementos
+			}
+            total--;
+            cout << "Pasajero eliminado correctamente.\n";
+            return;
+		}
+	}
+    cout << "Pasajero no encontrado.\n";
+}
+
+void editarPasajero(Pasajero pasajeros[], int total, int idEditar) 
+{
+    for (int i = 0; i < total; i++) {
+        if (pasajeros[i].id == idEditar) {
+            cout << "Ingrese nuevo nombre: ";
+            cin.ignore();
+            cin.getline(pasajeros[i].nombre, 50);
+            cout << "Ingrese nuevo ID de bus: ";
+            cin>> pasajeros[i].busID;
+            cout << "Datos actualizados correctamente.\n";
+            return;
+		}
+	}
+    cout << "Pasajero no encontrado.\n";
+}
+
+void listarPasajerosPorBus(Pasajero pasajeros[], int total, int busID) 
+{
+    cout << "\nPasajeros en el bus ID " << busID << ":\n";
+    for (int i = 0; i < total; i++) {
+        if (pasajeros[i].busID == busID) {
+            cout << "ID: " << pasajeros[i].id << " | Nombre: " << pasajeros[i].nombre << endl;
+		}
+	}
+}
+
+void ordenarPorNombre(Pasajero pasajeros[], int total) 
+{
+    for (int i = 0; i < total - 1; i++) 
+	{
+        for (int j = 0; j < total - i - 1; j++) 
+		{
+            if (strcmp(pasajeros[j].nombre, pasajeros[j + 1].nombre)> 0) 
+			{
+                Pasajero temp = pasajeros[j];
+                pasajeros[j] = pasajeros[j + 1];
+                pasajeros[j + 1] = temp;
+			}
+		}
+	}
+    cout << "\nPasajeros ordenados por nombre correctamente.\n";
+}
+
+void ordenarPorBusID(Pasajero pasajeros[], int total) 
+{
+    for (int i = 0; i < total - 1; i++) 
+	{
+        for (int j = 0; j < total - i - 1; j++) 
+		{
+            if (pasajeros[j].busID> pasajeros[j + 1].busID) 
+			{
+                Pasajero temp = pasajeros[j];
+                pasajeros[j] = pasajeros[j + 1];
+                pasajeros[j + 1] = temp;
+			}
+		}
+	}
+    cout << "\nPasajeros ordenados por Bus ID correctamente.\n";
+}
+
+// Función principal con menú interactivo
+int main() {
+    Bus listaBuses[5] = 
+	{
+        {1, "Centro", "08:00 AM", 3200},
+        {2, "Norte", "09:30 AM", 3200},
+        {3, "Sur", "10:15 AM", 3200},
+        {4, "Este", "07:00 AM", 3200},
+        {5, "Oeste", "06:45 PM", 3200}
+	};
+	
+    int totalBuses = 5;
+	string np;
+    Pasajero listaPasajeros[20];
+    int totalPasajeros = 0;
+    int opcion;
+
+	system("cls");
+    do {
+		system("cls");
+		cout << AZUL << "\n===== MENU DE GESTION =====\n";
+        cout << VERDE << "1. Lista Buses\n";
+        cout << "2. Agregar Pasajero\n";
+        cout << "3. Eliminar Pasajero\n";
+        cout << "4. Editar Pasajero\n";
+        cout << "5. Listar Pasajeros por Bus\n";
+        cout << "6. Ordenar Pasajeros por Nombre\n";
+        cout << "7. Ordenar Pasajeros por Bus ID\n" << RESET;
+        cout << ROJO << "8. Salir\n" << RESET;
+        cout << AZUL << "Seleccione una opcion: " << RESET;
+        cin>> opcion;
+
+        switch (opcion) {
+            case 1:
+            	system("cls");
+                listarBuses(listaBuses, totalBuses);
+                system("pause");
+                break;
+            case 2:
+            	system("cls");
+            	listarBuses(listaBuses, totalBuses);
+                do{
+                	if(totaldePasajeros < Pasajero.tam)
+                	{
+                		agregarPasajero(listaPasajeros, totalPasajeros);
+                		totalPasajeros++;
+					}else
+					{
+						cout<<"no hay mas cupo."<<endl;
+						break;
+					} // Fin else
+					cout<<"Quiere ingresar otro producto? [S] [N]"<<endl;
+					cin>> np;
+				}	while(np == "s" || np == "S");
+				
+                system("pause");
+                break;
+            case 3:
+            	system("cls");
+                int idEliminar;
+                cout << "Ingrese ID del pasajero a eliminar: " << RESET;
+                cin>> idEliminar;
+                eliminarPasajero(listaPasajeros, totalPasajeros, idEliminar);
+                system("pause");
+                break;
+            case 4:
+            	system("cls");
+                int idEditar;
+                cout << "Ingrese ID del pasajero a editar: " << RESET;
+                cin>> idEditar;
+                editarPasajero(listaPasajeros, totalPasajeros, idEditar);
+                system("pause");
+                break;
+            case 5:
+            	system("cls");
+                int busID;
+                cout << VERDE << "Ingrese ID del bus para listar pasajeros: " << RESET;
+                cin>> busID;
+                listarPasajerosPorBus(listaPasajeros, totalPasajeros, busID);
+                system("pause");
+                break;
+            case 6:
+            	system("cls");
+                ordenarPorNombre(listaPasajeros, totalPasajeros);
+                system("pause");
+                break;
+            case 7:
+            	system("cls");
+                ordenarPorBusID(listaPasajeros, totalPasajeros);
+                system("pause");
+                break;
+            case 8:
+            	system("cls");
+                cout  << "Saliendo del programa...\n" << RESET;
+                system("pause");
+                break;
+            default:
+            	system("cls");
+                cout   << "Opción inválida, intente nuevamente.\n" << RESET;
+                system("pause");
+}
+} while (opcion!= 9);
+
+    getch();
+    return 0;
+}
