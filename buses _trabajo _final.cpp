@@ -39,10 +39,11 @@ bool validarBusID(Bus buses[], int totalBuses, int busID) {
 
 void agregarPasajero(Pasajero pasajeros[], int &total, Bus buses[], int totalBuses) {
     int idbus;
-    cout << AMARILLO << "Ingrese ID del pasajero: " << RESET;
+    cin.ignore();
+	cout << AMARILLO << "Ingrese ID del pasajero: " << RESET;
     cin >> pasajeros[total].id;
 
-    cin.ignore();
+    fflush(stdin);
     cout << AMARILLO << " Ingrese nombre del pasajero: " << RESET;
     cin.getline(pasajeros[total].nombre, 50);
 
@@ -55,8 +56,9 @@ void agregarPasajero(Pasajero pasajeros[], int &total, Bus buses[], int totalBus
     }
     
     pasajeros[total].busID = idbus;
-    total++;
     cout << VERDE << " Pasajero agregado correctamente.\n" << RESET;
+    
+    total++;
 }
 
 //Codigo gotoxy
@@ -108,7 +110,7 @@ cout << AZUL << "\n===== LISTADO DE BUSES =====\n" << RESET;
 		cout << AMARILLO << "Bus ID: " << RESET << buses[i].id << AMARILLO
              << " | Ruta: " << RESET << buses[i].ruta << "\t" << AMARILLO
              << " | Horario: " << RESET << buses[i].horario <<AMARILLO
-             << " | Precio: " << "$" << RESET << buses[i].precio << endl;
+             << " | Precio: " << VERDE << "$" << RESET << buses[i].precio << endl;
 	}
 	final(65,5,3+total*2);
 	
@@ -119,18 +121,16 @@ void listarPasajeros(Pasajero pasajeros[], int total) {
     if (total == 0) {
         cout << ROJO << "\nNo hay pasajeros registrados.\n" << RESET;
         return;
-    }
-
-    cout << AZUL << "\n===== LISTADO DE PASAJEROS =====\n" << RESET;
+    }  
+    
     for (int i = 0; i < total; i++) {
-        cout << "ID: " << pasajeros[i].id
-             << " | Nombre: " << VERDE << pasajeros[i].nombre << RESET
-             << " | Bus ID: " << pasajeros[i].busID << endl;
-    }
+        renglon(50,5,3+i*2);
+		cout << AMARILLO << "ID pasajero: " << RESET << pasajeros[i].id << "\t" << AMARILLO << " | Nombre: " << RESET << pasajeros[i].nombre << AMARILLO << "\t" << " | ID bus: " << pasajeros[i].busID << RESET << endl;
+	}	
+	final(50,5,3+total*2); cout << "\n\n";
 }
 
-void eliminarPasajero(Pasajero pasajeros[], int &total, int idEliminar) 
-{
+void eliminarPasajero(Pasajero pasajeros[], int &total, int idEliminar) {
     for (int i = 0; i < total; i++) 
 	{
         if (pasajeros[i].id == idEliminar) {
@@ -162,8 +162,7 @@ void editarPasajero(Pasajero pasajeros[], int total, int idEditar)
 }
 
 void listarPasajerosPorBus(Pasajero pasajeros[], int total, int busID) 
-{
-    
+{  
 	cout << "\nPasajeros en el bus ID " << busID << ":\n";
     for (int i = 0; i < total; i++) {
         //renglon(65,5,3+i*2);
@@ -171,8 +170,7 @@ void listarPasajerosPorBus(Pasajero pasajeros[], int total, int busID)
             cout << AMARILLO << "ID: " << RESET << pasajeros[i].id << AMARILLO << " | Nombre: " << RESET << pasajeros[i].nombre << endl;
 		}
 		//final(65,5,3+total*2);
-	}
-	
+	}	
 }
 
 void ordenarPorNombre(Pasajero pasajeros[], int total) 
@@ -256,7 +254,6 @@ int main() {
                 		system("cls");
 						listarBuses(listaBuses, totalBuses);
 						agregarPasajero(listaPasajeros, totalPasajeros, listaBuses, totalBuses);
-                		totalPasajeros++;
 					}else
 					{
 						cout << ROJO <<"no hay mas cupo."<<endl << RESET;
@@ -276,14 +273,16 @@ int main() {
             case 4:
             	system("cls");
                 int idEliminar;
-                cout << AMARILLO << "Ingrese ID del pasajero a eliminar: " << RESET;
+                listarPasajeros(listaPasajeros, totalPasajeros);
+                cin.ignore();
+                cout << "Ingrese ID del pasajero a eliminar: " << RESET;
                 cin>> idEliminar;
                 eliminarPasajero(listaPasajeros, totalPasajeros, idEliminar);
                 system("pause");
                 break;
             case 5:
             	system("cls");
-                int idEditar;
+            	int idEditar;
                 cout << VERDE << "Ingrese ID del pasajero a editar: " << RESET;
                 cin>> idEditar;
                 editarPasajero(listaPasajeros, totalPasajeros, idEditar);
@@ -317,7 +316,7 @@ int main() {
                 cout << ROJO << "Opcion invalida, intente nuevamente.\n" << RESET;
                 system("pause");
         }
-    } while (opcion!= 8);
+    } while (opcion!= 9);
 
     return 0;
 }
